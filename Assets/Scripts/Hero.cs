@@ -6,8 +6,9 @@ public class Hero : MonoBehaviour
 {
     public string unitName;
     public int maxHP;
-    public int currentHP;
     public int damage;
+
+    private int currentHP;
 
     private void Awake()
     {
@@ -16,29 +17,39 @@ public class Hero : MonoBehaviour
 
     private void Start()
     {
+        currentHP = maxHP;
+        StartCoroutine(Attack());
     }
 
     void Update()
     {
-        
+        ///Debug
+        if (Input.GetKeyDown(KeyCode.A))
+            Attack();
     }
 
-    private void Attack(Enemy _target)
+    private IEnumerator Attack()
     {
-        //Attack
+        if (CombatManager.enemies.Count <= 0)
+            yield break;
+        
+        Enemy enemy = CombatManager.enemies[Random.Range(0, CombatManager.enemies.Count)];
+        yield return new WaitForSecondsRealtime(1.0f);
+        enemy.TakeDamage(damage);
+        Debug.Log($"{unitName} attacked {enemy.unitName}");
+        StartCoroutine(Attack());
     }
 
     public void TakeDamage(int _dmgTaken)
     {
-        currentHP -= _dmgTaken;
-
-        //Check if the unit is dead
-        if (currentHP <= 0)
-            Death();
+        
     }
 
     private void Death()
     {
         //Logic when dying (animation or something)
+        CombatManager.heroes.Remove(this);
+        Destroy(gameObject, 1.0f);
+
     }
 }

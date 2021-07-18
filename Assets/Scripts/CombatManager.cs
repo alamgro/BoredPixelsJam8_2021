@@ -9,12 +9,24 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        
+        print("Heroes = " + heroes.Count);
+        print("Enemies = " + enemies.Count);
     }
 
     void Update()
     {
-        print("Heroes = " + heroes.Count);
-        print("Enemies = " + enemies.Count);
+        ///Debug
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            foreach (Enemy item in enemies)
+            {
+                print(item.unitName);
+            }
+        }
+
+    }
+
+    public void CheckBattleEnd()
+    {
     }
 }

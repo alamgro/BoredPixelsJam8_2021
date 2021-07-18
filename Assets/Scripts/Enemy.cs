@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     public string unitName;
     public int maxHP;
-    public int currentHP;
     public int damage;
+    [SerializeField]
+    private int currentHP;
+    [SerializeField]
+    private Image healthBar;
 
     private void Awake()
     {
@@ -16,6 +20,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        currentHP = maxHP;
     }
 
     void Update()
@@ -23,14 +28,18 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void Attack(Hero _target)
+    private void Attack()
     {
-
+        Hero hero = CombatManager.heroes[Random.Range(0, CombatManager.heroes.Count)];
+        hero.TakeDamage(damage);
+        Debug.Log($"{unitName} attacked {hero.unitName}");
     }
 
     public void TakeDamage(int _dmgTaken)
     {
-        currentHP -= _dmgTaken;
+        currentHP -= _dmgTaken; //Apply damage
+
+        healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
 
         //Check if the unit is dead
         if (currentHP <= 0)
@@ -40,5 +49,7 @@ public class Enemy : MonoBehaviour
     private void Death()
     {
         //Logic when dying (animation or something)
+        CombatManager.enemies.Remove(this);
+        Destroy(gameObject, 1.0f);
     }
 }
