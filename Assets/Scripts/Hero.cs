@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
     public string unitName;
     public int maxHP;
     public int damage;
-
+    [SerializeField]
     private int currentHP;
+    [SerializeField]
+    private Image healthBar;
 
     private void Awake()
     {
@@ -35,14 +38,25 @@ public class Hero : MonoBehaviour
         
         Enemy enemy = CombatManager.enemies[Random.Range(0, CombatManager.enemies.Count)];
         yield return new WaitForSecondsRealtime(1.0f);
-        enemy.TakeDamage(damage);
-        Debug.Log($"{unitName} attacked {enemy.unitName}");
+        //Check if it is not null, just in case another unit killed it before this one
+        if (enemy)
+        {
+            enemy.TakeDamage(damage);
+            Debug.Log($"{unitName} attacked {enemy.unitName}");
+        }
+
         StartCoroutine(Attack());
     }
 
     public void TakeDamage(int _dmgTaken)
     {
-        
+        currentHP -= _dmgTaken; //Apply damage
+
+        healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
+
+        //Check if the unit is dead
+        if (currentHP <= 0)
+            Death();
     }
 
     private void Death()

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b6d4ee933ff08847afe6db7da580984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopupPrefab: {fileID: 6116912569223417805, guid: 1da3ff63da0979e49a1f12a09351eaac, type: 3}
 --- !u!4 &107267493
 Transform:
   m_ObjectHideFlags: 0
@@ -183,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201991936842030838, guid: 520a240050924c646940683dc4aae782, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2812253
+      value: -1.8312253
       objectReference: {fileID: 0}
     - target: {fileID: 1201991936842030838, guid: 520a240050924c646940683dc4aae782, type: 3}
       propertyPath: m_LocalPosition.z
@@ -403,7 +404,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -443,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201991936842030838, guid: 520a240050924c646940683dc4aae782, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.41394818
+      value: -0.13605177
       objectReference: {fileID: 0}
     - target: {fileID: 1201991936842030838, guid: 520a240050924c646940683dc4aae782, type: 3}
       propertyPath: m_LocalPosition.z
@@ -566,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201991936842030838, guid: 520a240050924c646940683dc4aae782, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.42
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 1201991936842030838, guid: 520a240050924c646940683dc4aae782, type: 3}
       propertyPath: m_LocalPosition.z
