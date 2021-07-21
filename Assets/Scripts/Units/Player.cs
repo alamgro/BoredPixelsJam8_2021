@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * This is the player script, which contain the main actions, controls and functionalities of the player mechanics.
@@ -8,9 +9,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int currentMana;
+    public int maxMana;
+
+    [SerializeField]
+    private Image manaBar;
+
     void Start()
     {
-        
+        currentMana = maxMana;
     }
 
     void Update()
@@ -18,4 +25,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
     }
+
+    private void RegenarateMana()
+    {
+        //Logic to regen mana
+    }
+
 }

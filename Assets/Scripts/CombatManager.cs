@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class CombatManager : MonoBehaviour
@@ -31,8 +32,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        print("Heroes = " + heroes.Count);
-        print("Enemies = " + enemies.Count);
+       
     }
 
     void Update()
@@ -45,16 +45,32 @@ public class CombatManager : MonoBehaviour
                 print(item.unitName);
             }
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
-    public void ShowDamagePopup(Vector3 _position, int _dmgTaken)
+    public void ShowFeedbackPopup(Vector3 _position, int _amount)
     {
         GameObject go = Instantiate(damagePopupPrefab, _position, Quaternion.identity);
-        TextMeshPro damamgeUI = go.GetComponent<TextMeshPro>();
-        damamgeUI.SetText($"-{_dmgTaken}");
+        TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
+        feedbackUI.color = Color.red;
+        
+        feedbackUI.SetText($"-{_amount}");
+    }
+
+    public void ShowFeedbackPopup(Vector3 _position, int _amount, bool isHealing)
+    {
+        GameObject go = Instantiate(damagePopupPrefab, _position, Quaternion.identity);
+        TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
+        feedbackUI.color = Color.green;
+
+        feedbackUI.SetText($"+{_amount}");
     }
 
     public void CheckBattleEnd()
     {
+        //Logic to end the battle
     }
 }

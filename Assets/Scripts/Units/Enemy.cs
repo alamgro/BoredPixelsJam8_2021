@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public string unitName;
     public int maxHP;
     public int damage;
+
     [SerializeField]
     private int currentHP;
     [SerializeField]
@@ -36,9 +37,14 @@ public class Enemy : MonoBehaviour
             yield break;
 
         Hero hero = CombatManager.heroes[Random.Range(0, CombatManager.heroes.Count)];
+
         yield return new WaitForSecondsRealtime(1.0f);
-        hero.TakeDamage(damage);
-        Debug.Log($"{unitName} attacked {hero.unitName}");
+        //Check if it is not null, just in case another unit killed it before this one
+        if (hero)
+        {
+            hero.TakeDamage(damage);
+            //Debug.Log($"{unitName} attacked {hero.unitName}");
+        }
         StartCoroutine(Attack());
     }
 
@@ -47,7 +53,7 @@ public class Enemy : MonoBehaviour
         currentHP -= _dmgTaken; //Apply damage
         healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
 
-        CombatManager.Manager.ShowDamagePopup(transform.position, _dmgTaken); //Instantiate damage popup
+        CombatManager.Manager.ShowFeedbackPopup(transform.position, _dmgTaken); //Instantiate damage popup
 
         //Check if the unit is dead
         if (currentHP <= 0)
@@ -61,5 +67,25 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 1.0f);
     }
 
-    
+    public int GetHP() { return currentHP; }
+
+    public void SetHP(int _targetHP)
+    {
+        currentHP = _targetHP;
+
+        if (currentHP > maxHP)
+            currentHP = maxHP;
+
+        healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
+    }
+
+    public void IncreaseHP(int _HPAmount)
+    {
+        currentHP += _HPAmount;
+
+        if (currentHP > maxHP)
+            currentHP = maxHP;
+
+        healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
+    }
 }
