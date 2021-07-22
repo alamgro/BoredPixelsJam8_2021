@@ -9,6 +9,7 @@ public class SpellCaster : MonoBehaviour
     private bool isDragging = false;
     private Camera cam;
     private SpellObject spellObject;
+    private Vector2 initialPosition;
 
     //Button was pressed 
     private void OnMouseDown()
@@ -21,14 +22,19 @@ public class SpellCaster : MonoBehaviour
     {
         isDragging = false;
         //Check uf the button is released over a hero
-        if (touchedHero)
+        if (touchedHero && spellObject.playerRef.GetMana() >= spellObject.spell.ManaCost)
         {
             //Logic to apply some effect
             spellObject.ApplySpell(); //Apply the spell effect
 
             print("Efecto aplicado!");
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else
+        {
+            //Since is not selecting a hero, just reset the position
+            ResetPosition(transform);
+        }
     }
 
     void Start()
@@ -36,6 +42,7 @@ public class SpellCaster : MonoBehaviour
         spellObject = GetComponent<SpellObject>();
         cam = Camera.main;
         touchedHero = null;
+        initialPosition = Vector2.zero;
     }
 
     void Update()
@@ -54,7 +61,8 @@ public class SpellCaster : MonoBehaviour
             //Scale up object
             transform.localScale *= 1.5f;
 
-            touchedHero = collision.GetComponent<Hero>();
+            touchedHero = collision.GetComponent<Hero>(); //Assign the touched hero
+            spellObject.targetUnit = touchedHero;
         }
     }
 
@@ -66,6 +74,13 @@ public class SpellCaster : MonoBehaviour
             transform.localScale = Vector2.one;
 
             touchedHero = null;
+            spellObject.targetUnit = null;
         }
     }
+
+    public void ResetPosition(Transform _target)
+    {
+        _target.position = initialPosition;
+    }
+
 }

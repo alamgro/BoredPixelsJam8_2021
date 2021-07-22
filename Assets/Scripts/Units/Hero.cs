@@ -9,8 +9,8 @@ public class Hero : MonoBehaviour
     public int maxHP;
     public int damage;
 
+    [SerializeField]
     private States currentState;
-
     [SerializeField]
     private int currentHP;
     [SerializeField]

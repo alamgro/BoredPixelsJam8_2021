@@ -2,27 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellObject : SpellCaster
+public class SpellObject : MonoBehaviour
 {
-    private Hero targetUnit;
+    [HideInInspector]
+    public Hero targetUnit;
+    [HideInInspector]
+    public Player playerRef;
+    [HideInInspector]
+    public Spells spell;
+
     //AQUÍ PIDRÍA TENER ARRAY DE SPELLS Y APLICARLO POR OBJETO
-    private Spells spell; 
-    private SpellCaster spellCaster;
-    private Vector2 initialPosition;
-    private Player player;
 
     //MANA SE GASTA CON CALDERO. 
     /*
      * CALDERO GENERA POCIONES, MÁXIMO 3.
      * LAS POCIONES CUESTAN MANA
      * PROBAR SISTEMA DE MANA
-     * hud de spells con generación. Estará enlazado al caldero
+     * HUD de spells con generación. Estará enlazado al caldero
+     * APLICAR EL CAMBIO DE MANA EN LA BARRA
      */
 
     void Start()
     {
-        spellCaster = GetComponent<SpellCaster>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        targetUnit = null;
 
         //Generate a random spell
         int randSpell = Random.Range(0, Spells.Manager.SpellsCount());
@@ -37,18 +40,10 @@ public class SpellObject : SpellCaster
 
     public void ApplySpell()
     {
-        player.SubstractMana(spell.ManaCost); //Substract the mana cost to the player
-        targetUnit.SetState(spell.StateApplied); //Apply the state to the selected unit
-    }
-
-    public Vector2 InitialPosition
-    {
-        get { return initialPosition; }
-
-        set
-        {
-            initialPosition = value;
-        }
+        if(playerRef)
+            playerRef.SubstractMana(spell.ManaCost); //Substract the mana cost to the player
+        if (targetUnit)
+            targetUnit.SetState(spell.StateApplied); //Apply the state to the selected unit
     }
 
 }

@@ -47,7 +47,7 @@ public class HealCaster : MonoBehaviour
         }
         else
         {
-            //Since is not selecting a hero, just reset the heal position
+            //Since is not selecting a hero, just reset the position
             placeholder.ResetPosition(transform); 
         }
     }

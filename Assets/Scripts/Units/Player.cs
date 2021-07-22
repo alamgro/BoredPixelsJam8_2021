@@ -9,8 +9,10 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public int maxMana;
+
+    [SerializeField]
     private int currentMana;
-    private int maxMana;
     
     [SerializeField]
     private Image manaBar;
@@ -34,8 +36,11 @@ public class Player : MonoBehaviour
         {
             currentMana = maxMana;
         }
+        manaBar.fillAmount = (float)currentMana / maxMana; //Update unit health bar
+
+        CombatManager.Manager.ShowFeedbackPopup(transform.position, _manaAmount, Color.blue, false);
     }
-    
+
     public void SubstractMana(int _manaAmount)
     {
         currentMana -= _manaAmount;
@@ -43,6 +48,9 @@ public class Player : MonoBehaviour
         {
             currentMana = 0;
         }
+        manaBar.fillAmount = (float)currentMana / maxMana; //Update unit health bar
+
+        CombatManager.Manager.ShowFeedbackPopup(transform.position, _manaAmount, Color.blue, true);
     }
 
     public int GetMana() { return currentMana; }

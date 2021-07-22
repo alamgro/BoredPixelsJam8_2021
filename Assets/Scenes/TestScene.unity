@@ -935,8 +935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1aeee671ca8e24b95703c29594732f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 3
-  healPrefab: {fileID: 6666860005488101361, guid: 75dd7461d79ff0b45ad18c1ee3ff2bfd, type: 3}
+  cooldownTime: 0.5
+  healPrefab: {fileID: 2956543771500761385, guid: ad94df86ca677304891bad9e3e553877, type: 3}
   placeholderBG: {fileID: 117545753}
   placeholderFill: {fileID: 601858940}
   traslucidWhite: {r: 1, g: 1, b: 1, a: 0.2509804}
@@ -1024,7 +1024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6232751797331925056, guid: 8b37bfcf66b277d4f93259c212f515d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.667
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6232751797331925056, guid: 8b37bfcf66b277d4f93259c212f515d4, type: 3}
       propertyPath: m_LocalPosition.z

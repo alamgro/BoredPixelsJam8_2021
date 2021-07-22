@@ -58,7 +58,7 @@ public class HealPlaceholder : MonoBehaviour
     private void InstantiateHeal()
     {
         GameObject go = Instantiate(healPrefab, transform); //Create heal
-        go.GetComponent<HealCaster>().placeholder = this; //Let know the heal object that this is the placeholder
+        //go.GetComponent<HealCaster>().placeholder = this; //Let know the heal object that this is the placeholder
     }
 
 }

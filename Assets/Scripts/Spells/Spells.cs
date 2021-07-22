@@ -111,10 +111,10 @@ public class Spells : MonoBehaviour
         //}
         _instance = this;
 
-        spellsDatabase.Add(new Spells(0, "Normal", "Nothing special here.", States.NONE, 1));
-        spellsDatabase.Add(new Spells(1, "Dizzy", "This attack reduces de attack accuracy.", States.DIZZY, 1));
-        spellsDatabase.Add(new Spells(2, "Slow Down", "Reduces de attack speed of the target.", States.SLOW, 1));
-        spellsDatabase.Add(new Spells(3, "Poison", "Deals a constant amount of damage over 5 seconds.", States.POISON, 1));
+        spellsDatabase.Add(new Spells(0, "Normal", "Nothing special here.", States.NONE, 2));
+        spellsDatabase.Add(new Spells(1, "Dizzy", "This attack reduces de attack accuracy.", States.DIZZY, 2));
+        spellsDatabase.Add(new Spells(2, "Slow Down", "Reduces de attack speed of the target.", States.SLOW, 2));
+        spellsDatabase.Add(new Spells(3, "Poison", "Deals a constant amount of damage over 5 seconds.", States.POISON, 2));
 
     }
 
