@@ -9,6 +9,8 @@ public class Hero : MonoBehaviour
     public int maxHP;
     public int damage;
 
+    private States currentState;
+
     [SerializeField]
     private int currentHP;
     [SerializeField]
@@ -91,5 +93,12 @@ public class Hero : MonoBehaviour
         healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
 
         CombatManager.Manager.ShowFeedbackPopup(transform.position, _HPAmount, Color.green, false); //Instantiate popup
+    }
+
+    public States GetState() { return currentState; }
+
+    public void SetState(States _currentState)
+    {
+        currentState = _currentState;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //https://forum.unity.com/threads/need-help-with-rpg-spell-ability-system.121605/
+public enum States { NONE, DIZZY, SLOW, POISON }
 
 public class Spells : MonoBehaviour
 {
@@ -17,8 +18,7 @@ public class Spells : MonoBehaviour
     private string description;
     private int manaCost;
 
-    public enum States { NONE, DIZZY, SLOW, POISON }
-    public States stateApplied;
+    private States stateApplied;
 
     public Spells(int _id, string _spellName, string _description, States _stateApplied, int _manaCost)
     {
@@ -101,21 +101,20 @@ public class Spells : MonoBehaviour
 
     public void Awake()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
+        //if (_instance != null && _instance != this)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //else
+        //{
+        //    _instance = this;
+        //}
+        _instance = this;
 
-        //spellsDatabase[0] = new Spells(0, "Normal", "A normal attack", States.NONE, 1);
-        //spellsDatabase[1] = new Spells(1, "Dizzy", "This attack reduces de attack accuracy", States.DIZZY, 1);
-        //spellsDatabase[2] = new Spells(2, "Slow Down", "Reduces de attack speed of the target", States.SLOW, 1);
-        //spellsDatabase[3] = new Spells(3, "Poison", "Deals a constant amount of damage over 5 seconds", States.POISON, 1);
-        spellsDatabase.Add(new Spells(0, "Normal", "A normal attack", States.NONE, 1));
-        print(spellsDatabase.Count);
+        spellsDatabase.Add(new Spells(0, "Normal", "Nothing special here.", States.NONE, 1));
+        spellsDatabase.Add(new Spells(1, "Dizzy", "This attack reduces de attack accuracy.", States.DIZZY, 1));
+        spellsDatabase.Add(new Spells(2, "Slow Down", "Reduces de attack speed of the target.", States.SLOW, 1));
+        spellsDatabase.Add(new Spells(3, "Poison", "Deals a constant amount of damage over 5 seconds.", States.POISON, 1));
 
     }
 

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public string unitName;
     public int maxHP;
     public int damage;
+    
 
     [SerializeField]
     private int currentHP;

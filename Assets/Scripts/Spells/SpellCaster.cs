@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class SpellCaster : MonoBehaviour
 {
-    private bool isDragging = false;
-    private bool isTouchingHero = false;
-    private Camera cam;
+    public Hero touchedHero;
 
+    private bool isDragging = false;
+    private Camera cam;
+    private SpellObject spellObject;
+
+    //Button was pressed 
     private void OnMouseDown()
     {
         isDragging = true;
@@ -18,9 +21,11 @@ public class SpellCaster : MonoBehaviour
     {
         isDragging = false;
         //Check uf the button is released over a hero
-        if (isTouchingHero)
+        if (touchedHero)
         {
             //Logic to apply some effect
+            spellObject.ApplySpell(); //Apply the spell effect
+
             print("Efecto aplicado!");
         }
         Destroy(gameObject);
@@ -28,7 +33,9 @@ public class SpellCaster : MonoBehaviour
 
     void Start()
     {
+        spellObject = GetComponent<SpellObject>();
         cam = Camera.main;
+        touchedHero = null;
     }
 
     void Update()
@@ -44,9 +51,10 @@ public class SpellCaster : MonoBehaviour
     {
         if (collision.CompareTag("Hero"))
         {
-            //Scale up de object
-            transform.localScale *= 1.5f; 
-            isTouchingHero = true;
+            //Scale up object
+            transform.localScale *= 1.5f;
+
+            touchedHero = collision.GetComponent<Hero>();
         }
     }
 
@@ -56,7 +64,8 @@ public class SpellCaster : MonoBehaviour
         {
             //Set object scale to the original size
             transform.localScale = Vector2.one;
-            isTouchingHero = false;
+
+            touchedHero = null;
         }
     }
 }

@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int currentMana;
-    public int maxMana;
+    private int currentMana;
+    private int maxMana;
     
     [SerializeField]
     private Image manaBar;
@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
             currentMana = 0;
         }
     }
+
+    public int GetMana() { return currentMana; }
 
     private void RegenarateMana()
     {
