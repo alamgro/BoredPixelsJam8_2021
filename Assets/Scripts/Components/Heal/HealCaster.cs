@@ -80,7 +80,6 @@ public class HealCaster : MonoBehaviour
         {
             print($"{hero.unitName} was healed {healAmount} points");
             hero.IncreaseHP(healAmount);
-            CombatManager.Manager.ShowFeedbackPopup(hero.transform.position, healAmount, true); //Instantiate damage popup
         }
     }
 }

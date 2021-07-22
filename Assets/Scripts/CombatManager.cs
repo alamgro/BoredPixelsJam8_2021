@@ -51,23 +51,29 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ShowFeedbackPopup(Vector3 _position, int _amount)
+    public void ShowFeedbackPopup(Vector3 _position, int _amount, Color _color, bool isNegative)
     {
         GameObject go = Instantiate(damagePopupPrefab, _position, Quaternion.identity);
         TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
-        feedbackUI.color = Color.red;
+        feedbackUI.color = _color;
         
-        feedbackUI.SetText($"-{_amount}");
+        if(isNegative)
+            feedbackUI.SetText($"-{_amount}");
+        else
+            feedbackUI.SetText($"+{_amount}");
     }
 
-    public void ShowFeedbackPopup(Vector3 _position, int _amount, bool isHealing)
-    {
-        GameObject go = Instantiate(damagePopupPrefab, _position, Quaternion.identity);
-        TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
-        feedbackUI.color = Color.green;
+    //public void ShowFeedbackPopup(Vector3 _position, int _amount, bool isHealing)
+    //{
+    //    GameObject go = Instantiate(damagePopupPrefab, _position, Quaternion.identity);
+    //    TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
+    //    feedbackUI.color = Color.green;
 
-        feedbackUI.SetText($"+{_amount}");
-    }
+    //    feedbackUI.SetText($"+{_amount}");
+    //}
+
+
+
 
     public void CheckBattleEnd()
     {

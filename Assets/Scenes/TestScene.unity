@@ -448,12 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateApplied: 0
-  spellsDatabase:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spellsDatabase: []
 --- !u!1 &348209535
 GameObject:
   m_ObjectHideFlags: 0

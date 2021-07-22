@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         currentHP -= _dmgTaken; //Apply damage
         healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
 
-        CombatManager.Manager.ShowFeedbackPopup(transform.position, _dmgTaken); //Instantiate damage popup
+        CombatManager.Manager.ShowFeedbackPopup(transform.position, _dmgTaken, Color.red, true); //Instantiate damage popup
 
         //Check if the unit is dead
         if (currentHP <= 0)
@@ -87,5 +87,7 @@ public class Enemy : MonoBehaviour
             currentHP = maxHP;
 
         healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
+
+        CombatManager.Manager.ShowFeedbackPopup(transform.position, _HPAmount, Color.green, false); //Instantiate popup
     }
 }

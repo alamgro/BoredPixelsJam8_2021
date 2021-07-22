@@ -11,9 +11,10 @@ public class Player : MonoBehaviour
 {
     public int currentMana;
     public int maxMana;
-
+    
     [SerializeField]
     private Image manaBar;
+
 
     void Start()
     {
@@ -26,9 +27,28 @@ public class Player : MonoBehaviour
             Application.Quit();
     }
 
+    public void AddMana(int _manaAmount)
+    {
+        currentMana += _manaAmount;
+        if(currentMana > maxMana)
+        {
+            currentMana = maxMana;
+        }
+    }
+    
+    public void SubstractMana(int _manaAmount)
+    {
+        currentMana -= _manaAmount;
+        if(currentMana < 0)
+        {
+            currentMana = 0;
+        }
+    }
+
     private void RegenarateMana()
     {
         //Logic to regen mana
     }
+
 
 }
