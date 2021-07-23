@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Saitama
-  maxHP: 10
-  damage: 1
+  maxHP: 100
+  currentState: 0
   currentHP: 0
   healthBar: {fileID: 6012303324912663692}
 --- !u!61 &1118836550767093149

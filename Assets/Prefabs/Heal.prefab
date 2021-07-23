@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeholder: {fileID: 0}
-  healAmount: 3
+  healAmount: 5
+  manaCost: 3
 --- !u!58 &4700734082086177680
 CircleCollider2D:
   m_ObjectHideFlags: 0

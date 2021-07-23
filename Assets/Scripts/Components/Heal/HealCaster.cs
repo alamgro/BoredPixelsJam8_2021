@@ -7,17 +7,20 @@ public class HealCaster : MonoBehaviour
     [HideInInspector]
     public HealPlaceholder placeholder;
     public int healAmount;
+    public int manaCost;
 
     private bool isDragging = false;
     private bool isTouchingHero = false;
     private Camera cam;
     private Hero hero;
     private SpriteRenderer spriteRenderer;
+    private Player playerRef;
 
     void Start()
     {
         cam = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
@@ -42,11 +45,12 @@ public class HealCaster : MonoBehaviour
         isDragging = false;
         spriteRenderer.sortingOrder = 5;
         //Check uf the button is released over a hero
-        if (isTouchingHero)
+        if (isTouchingHero && playerRef.GetMana() >= manaCost)
         {
             //Logic to apply some effect
             HealUnit();
             placeholder.SetupPlaceholder();
+            playerRef.SubtractMana(manaCost);
             Destroy(gameObject);
         }
         else
@@ -82,7 +86,8 @@ public class HealCaster : MonoBehaviour
     {
         if (hero)
         {
-            print($"{hero.unitName} was healed {healAmount} points");
+            //print($"{hero.unitName} was healed {healAmount} points");
+            
             hero.IncreaseHP(healAmount);
         }
     }

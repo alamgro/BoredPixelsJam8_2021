@@ -25,10 +25,9 @@ public class SpellCaster : MonoBehaviour
     {
         isDragging = false;
         spriteRenderer.sortingOrder = 5;
-        //Check uf the button is released over a hero
+        //Check uf the button is released over a hero and the mana
         if (touchedHero && spellObject.playerRef.GetMana() >= spellObject.spell.ManaCost)
         {
-            //Logic to apply some effect
             spellObject.ApplySpell(); //Apply the spell effect
             spellHUD.spellObjects.Remove(gameObject); //Remove the object from the HUD list
             spellHUD.UpdateIndex(-1); //Reduce de current index 
@@ -50,7 +49,6 @@ public class SpellCaster : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         cam = Camera.main;
         touchedHero = null;
-        //initialPosition = Vector2.zero;
     }
 
     void Update()

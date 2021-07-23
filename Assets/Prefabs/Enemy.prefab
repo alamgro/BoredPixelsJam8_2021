@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Kori
-  maxHP: 30
-  damage: 0
+  maxHP: 100
+  damage: 1
   currentHP: 0
   healthBar: {fileID: 7682184994894449205}
 --- !u!61 &8870239214751610045

@@ -10,6 +10,8 @@ public class SpellObject : MonoBehaviour
     public Player playerRef;
     [HideInInspector]
     public Spells spell;
+    [SerializeField]
+    private States state;
 
     //AQUÍ PIDRÍA TENER ARRAY DE SPELLS Y APLICARLO POR OBJETO
 
@@ -30,7 +32,8 @@ public class SpellObject : MonoBehaviour
         //Generate a random spell
         int randSpell = Random.Range(0, Spells.Manager.SpellsCount());
         spell = Spells.Manager.FindSpell(randSpell);
-        //print("Spell: " + spell.StateApplied);
+        state = spell.StateApplied;
+        print("Spell: " + spell.StateApplied);
     }
 
     void Update()

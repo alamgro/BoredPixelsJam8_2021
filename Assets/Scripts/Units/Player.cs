@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         playerState = _state;
     }
 
-    //Añade x mana cada cierto tiempo
+    //Quita x mana cada cierto tiempo
     public IEnumerator DrainMana(int _manaAmount)
     {
         if (!playerState.Equals(PlayerStates.CAULDRON))
@@ -72,4 +72,13 @@ public class Player : MonoBehaviour
         StartCoroutine(DrainMana(_manaAmount));
     }
 
+    public IEnumerator RegenerateMana(int _manaAmount)
+    {
+        if (!playerState.Equals(PlayerStates.RESTING))
+            yield break;
+
+        SubtractMana(_manaAmount);
+        yield return new WaitForSecondsRealtime(1.5f);
+        StartCoroutine(RegenerateMana(_manaAmount));
+    }
 }

@@ -34,7 +34,7 @@ public class Cauldron : MonoBehaviour
                     //Verify if it is already using the cauldron
                     if(playerRef.GetPlayerState().Equals(PlayerStates.CAULDRON)) 
                     {
-                        //It will stop generating mana if the state is different to CAULDRON
+                        //It will stop consuming mana if the state is different to CAULDRON
                         playerRef.SetPlayerState(PlayerStates.IDLE); //Back to the Idle state
                         Debug.Log("Caldero apagado.");
                     }

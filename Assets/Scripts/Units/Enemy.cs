@@ -8,8 +8,9 @@ public class Enemy : MonoBehaviour
     public string unitName;
     public int maxHP;
     public int damage;
-    
 
+    private float currentAttackSpeed;
+    private Spells spellToApply;
     [SerializeField]
     private int currentHP;
     [SerializeField]
@@ -23,30 +24,41 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+        currentAttackSpeed = Random.Range(0.5f, 1.5f);
+
+        StartCoroutine(Attack(currentAttackSpeed));
     }
 
     void Update()
     {
         ///Debug
         if (Input.GetKeyDown(KeyCode.A))
-            Attack();
+            Attack(currentAttackSpeed);
     }
 
-    private IEnumerator Attack()
+    private IEnumerator Attack(float _attackSpeed)
     {
         if (CombatManager.enemies.Count <= 0)
             yield break;
 
         Hero hero = CombatManager.heroes[Random.Range(0, CombatManager.heroes.Count)];
 
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSecondsRealtime(_attackSpeed);
         //Check if it is not null, just in case another unit killed it before this one
         if (hero)
         {
             hero.TakeDamage(damage);
+
+            if(Random.Range(0, 100) < 75)
+            {
+                int randState = Random.Range(1, 4);
+                spellToApply = Spells.Manager.FindSpell(randState);
+                hero.SetState(spellToApply.StateApplied);
+            }
+
             //Debug.Log($"{unitName} attacked {hero.unitName}");
         }
-        StartCoroutine(Attack());
+        StartCoroutine(Attack(_attackSpeed));
     }
 
     public void TakeDamage(int _dmgTaken)
