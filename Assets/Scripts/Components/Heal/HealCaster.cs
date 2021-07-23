@@ -12,10 +12,12 @@ public class HealCaster : MonoBehaviour
     private bool isTouchingHero = false;
     private Camera cam;
     private Hero hero;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         cam = Camera.main;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -31,12 +33,14 @@ public class HealCaster : MonoBehaviour
     private void OnMouseDown()
     {
         isDragging = true;
+        spriteRenderer.sortingOrder = 100;
     }
 
     //Button release
     private void OnMouseUp()
     {
         isDragging = false;
+        spriteRenderer.sortingOrder = 5;
         //Check uf the button is released over a hero
         if (isTouchingHero)
         {

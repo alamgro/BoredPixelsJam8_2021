@@ -30,7 +30,7 @@ public class SpellObject : MonoBehaviour
         //Generate a random spell
         int randSpell = Random.Range(0, Spells.Manager.SpellsCount());
         spell = Spells.Manager.FindSpell(randSpell);
-        print("Spell: " + spell.StateApplied);
+        //print("Spell: " + spell.StateApplied);
     }
 
     void Update()

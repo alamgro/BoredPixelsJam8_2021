@@ -5,28 +5,35 @@ using UnityEngine;
 public class SpellCaster : MonoBehaviour
 {
     public Hero touchedHero;
+    public Vector2 initialPosition;
+    public SpellHUD spellHUD;
 
     private bool isDragging = false;
     private Camera cam;
     private SpellObject spellObject;
-    private Vector2 initialPosition;
+    private SpriteRenderer spriteRenderer;
 
     //Button was pressed 
     private void OnMouseDown()
     {
         isDragging = true;
+        spriteRenderer.sortingOrder = 100;
     }
 
     //Button release
     private void OnMouseUp()
     {
         isDragging = false;
+        spriteRenderer.sortingOrder = 5;
         //Check uf the button is released over a hero
         if (touchedHero && spellObject.playerRef.GetMana() >= spellObject.spell.ManaCost)
         {
             //Logic to apply some effect
             spellObject.ApplySpell(); //Apply the spell effect
+            spellHUD.spellObjects.Remove(gameObject); //Remove the object from the HUD list
+            spellHUD.UpdateIndex(-1); //Reduce de current index 
 
+            spellHUD.ReorderHUD(); //Reorder de HUD
             print("Efecto aplicado!");
             Destroy(gameObject);
         }
@@ -40,9 +47,10 @@ public class SpellCaster : MonoBehaviour
     void Start()
     {
         spellObject = GetComponent<SpellObject>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         cam = Camera.main;
         touchedHero = null;
-        initialPosition = Vector2.zero;
+        //initialPosition = Vector2.zero;
     }
 
     void Update()

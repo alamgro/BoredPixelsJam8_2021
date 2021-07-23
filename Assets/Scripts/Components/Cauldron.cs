@@ -5,6 +5,8 @@ using UnityEngine;
 public class Cauldron : MonoBehaviour
 {
     public int manaAmount;
+    public GameObject spellPrefab;
+    public SpellHUD spellHUD;
 
     private Player playerRef;
     private Camera cam;
@@ -50,8 +52,25 @@ public class Cauldron : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.M))
-            playerRef.SubtractMana(2);
+        {
+            GenerateSpellObject();
+            //playerRef.SubtractMana(2);
+        }
     }
 
+    public void GenerateSpellObject()
+    {
+        if (spellHUD.GetCurrentIndex() > (spellHUD.elementsPos.Length - 1))
+            return;
+
+        GameObject go = Instantiate(spellPrefab, spellHUD.elementsPos[spellHUD.GetCurrentIndex()]); //Instantiate spell on the HUD
+        SpellCaster tempSpellCaster = go.GetComponent<SpellCaster>();
+        tempSpellCaster.initialPosition = spellHUD.elementsPos[spellHUD.GetCurrentIndex()].position; //Set the initial position
+        tempSpellCaster.spellHUD = spellHUD; //Reference to the HUD for the spell to use
+        spellHUD.spellObjects.Add(go);
+
+        spellHUD.UpdateIndex(1);
+
+    }
 
 }

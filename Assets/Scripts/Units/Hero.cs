@@ -24,7 +24,7 @@ public class Hero : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
-        StartCoroutine(Attack());
+        //StartCoroutine(Attack());
     }
 
     void Update()
