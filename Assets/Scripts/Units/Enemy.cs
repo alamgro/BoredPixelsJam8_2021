@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
-        currentAttackSpeed = Random.Range(0.5f, 1.5f);
+        currentAttackSpeed = Random.Range(1f, 2f);
 
         StartCoroutine(Attack(currentAttackSpeed));
     }
@@ -38,14 +38,14 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Attack(float _attackSpeed)
     {
-        if (CombatManager.enemies.Count <= 0)
+        if (CombatManager.heroes.Count <= 0)
             yield break;
 
         Hero hero = CombatManager.heroes[Random.Range(0, CombatManager.heroes.Count)];
 
         yield return new WaitForSecondsRealtime(_attackSpeed);
         //Check if it is not null, just in case another unit killed it before this one
-        if (hero)
+        if (hero != null)
         {
             hero.TakeDamage(damage);
 
@@ -77,7 +77,8 @@ public class Enemy : MonoBehaviour
     {
         //Logic when dying (animation or something)
         CombatManager.enemies.Remove(this);
-        Destroy(gameObject, 1.0f);
+        CombatManager.Manager.CheckBattleEnd();
+        Destroy(gameObject, 0.5f);
     }
 
     public int GetHP() { return currentHP; }

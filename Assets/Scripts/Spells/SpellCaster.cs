@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpellCaster : MonoBehaviour
 {
     public Hero touchedHero;
     public Vector2 initialPosition;
     public SpellHUD spellHUD;
+    public GameObject toolTip;
+    public TextMeshProUGUI textToolTipUI;
 
     private bool isDragging = false;
     private Camera cam;
@@ -43,12 +46,26 @@ public class SpellCaster : MonoBehaviour
         }
     }
 
+    private void OnMouseEnter()
+    {
+        toolTip.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        toolTip.SetActive(false);
+    }
+
     void Start()
     {
         spellObject = GetComponent<SpellObject>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         cam = Camera.main;
         touchedHero = null;
+
+        textToolTipUI.text = spellObject.spell.SpellName + ": " + spellObject.spell.Description;
+        toolTip.SetActive(false);
+
     }
 
     void Update()

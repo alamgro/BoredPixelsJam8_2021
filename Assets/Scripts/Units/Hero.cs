@@ -51,7 +51,7 @@ public class Hero : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(_attackSpeed);
         //Check if it is not null, just in case another unit killed it before this one
-        if (enemy)
+        if (enemy != null)
         {
             //If the randProbability is lower than te accuracy, then it hits the attack
             int randProbability = Random.Range(0, 101);
@@ -66,7 +66,7 @@ public class Hero : MonoBehaviour
     {
         currentHP -= _dmgTaken; //Apply damage
         healthBar.fillAmount = (float)currentHP / maxHP; //Update unit health bar
-
+        
         CombatManager.Manager.ShowFeedbackPopup(transform.position, _dmgTaken, Color.red, true); //Instantiate damage popup
 
         //Check if the unit is dead
@@ -78,7 +78,8 @@ public class Hero : MonoBehaviour
     {
         //Logic when dying (animation or something)
         CombatManager.heroes.Remove(this);
-        Destroy(gameObject, 1.0f);
+        CombatManager.Manager.CheckBattleEnd();
+        Destroy(gameObject, 0.5f);
 
     }
 

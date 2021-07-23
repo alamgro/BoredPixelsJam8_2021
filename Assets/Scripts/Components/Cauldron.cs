@@ -10,6 +10,7 @@ public class Cauldron : MonoBehaviour
 
     private Player playerRef;
     private Camera cam;
+    private Coroutine coroutine;
 
     void Start()
     {
@@ -36,15 +37,16 @@ public class Cauldron : MonoBehaviour
                     {
                         //It will stop consuming mana if the state is different to CAULDRON
                         playerRef.SetPlayerState(PlayerStates.IDLE); //Back to the Idle state
-                        Debug.Log("Caldero apagado.");
+                        StopCoroutine(coroutine);
+                        //Debug.Log("Caldero apagado.");
                     }
-                    else if(playerRef.GetPlayerState().Equals(PlayerStates.IDLE))
+                    else if(playerRef.GetPlayerState().Equals(PlayerStates.IDLE) || playerRef.GetPlayerState().Equals(PlayerStates.RESTING))
                     {
-                        //Now is generating mana, so it is on Cauldron state
+                        //Now is draining mana, so it is on Cauldron state
                         playerRef.SetPlayerState(PlayerStates.CAULDRON);
-
+                        coroutine = StartCoroutine(GenerateSpell(4f));
                         StartCoroutine(playerRef.DrainMana(manaAmount)); //Start generating mana
-                        Debug.Log("Caldero encendido.");
+                        //Debug.Log("Caldero encendido.");
                     }
 
                 }
@@ -53,14 +55,14 @@ public class Cauldron : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            GenerateSpellObject();
+            SetUpSpellObject();
             //playerRef.SubtractMana(2);
         }
     }
 
-    public void GenerateSpellObject()
+    private void SetUpSpellObject()
     {
-        if (spellHUD.GetCurrentIndex() > (spellHUD.elementsPos.Length - 1))
+        if (spellHUD.GetCurrentIndex() > (spellHUD.elementsPos.Length - 1) || playerRef.GetMana() <= 0)
             return;
 
         GameObject go = Instantiate(spellPrefab, spellHUD.elementsPos[spellHUD.GetCurrentIndex()]); //Instantiate spell on the HUD
@@ -70,7 +72,17 @@ public class Cauldron : MonoBehaviour
         spellHUD.spellObjects.Add(go);
 
         spellHUD.UpdateIndex(1);
-
     }
 
+    private IEnumerator GenerateSpell(float _waitTime)
+    {
+        print("Generando poción...");
+        yield return new WaitForSecondsRealtime(_waitTime);
+
+        if (playerRef.GetPlayerState().Equals(PlayerStates.CAULDRON))
+        {
+            SetUpSpellObject();
+            StartCoroutine(GenerateSpell(_waitTime));
+        }
+    }
 }

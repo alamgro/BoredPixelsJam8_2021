@@ -54,29 +54,28 @@ public class CombatManager : MonoBehaviour
     public void ShowFeedbackPopup(Vector3 _position, int _amount, Color _color, bool isNegative)
     {
         GameObject go = Instantiate(popupPrefab, _position, Quaternion.identity);
-        TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
-        feedbackUI.color = _color;
+        if (go)
+        {
+            TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
+            feedbackUI.color = _color;
+
+            if (isNegative)
+                feedbackUI.SetText($"-{_amount}");
+            else
+                feedbackUI.SetText($"+{_amount}");
+        }
         
-        if(isNegative)
-            feedbackUI.SetText($"-{_amount}");
-        else
-            feedbackUI.SetText($"+{_amount}");
     }
-
-    //public void ShowFeedbackPopup(Vector3 _position, int _amount, bool isHealing)
-    //{
-    //    GameObject go = Instantiate(damagePopupPrefab, _position, Quaternion.identity);
-    //    TextMeshPro feedbackUI = go.GetComponent<TextMeshPro>();
-    //    feedbackUI.color = Color.green;
-
-    //    feedbackUI.SetText($"+{_amount}");
-    //}
-
-
 
 
     public void CheckBattleEnd()
     {
         //Logic to end the battle
+        if (enemies.Count <= 0 && heroes.Count > 0)
+            print("Heroes win");
+        else if (enemies.Count > 0 && heroes.Count < 0)
+            print("Enemies win");
+        else
+            print("ok");
     }
 }

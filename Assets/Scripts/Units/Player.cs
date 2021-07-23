@@ -77,8 +77,9 @@ public class Player : MonoBehaviour
         if (!playerState.Equals(PlayerStates.RESTING))
             yield break;
 
-        SubtractMana(_manaAmount);
+        AddMana(_manaAmount);
         yield return new WaitForSecondsRealtime(1.5f);
+
         StartCoroutine(RegenerateMana(_manaAmount));
     }
 }

@@ -12,6 +12,7 @@ public class SpellObject : MonoBehaviour
     public Spells spell;
     [SerializeField]
     private States state;
+    private SpriteRenderer spriteRenderer;
 
     //AQUÍ PIDRÍA TENER ARRAY DE SPELLS Y APLICARLO POR OBJETO
 
@@ -27,13 +28,15 @@ public class SpellObject : MonoBehaviour
     void Start()
     {
         playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         targetUnit = null;
 
         //Generate a random spell
         int randSpell = Random.Range(0, Spells.Manager.SpellsCount());
         spell = Spells.Manager.FindSpell(randSpell);
+        spriteRenderer.sprite = spell.Icon();
         state = spell.StateApplied;
-        print("Spell: " + spell.StateApplied);
+        //print("Spell: " + spell.StateApplied);
     }
 
     void Update()

@@ -5,8 +5,8 @@ using TMPro;
 
 public class DamagePopup : MonoBehaviour
 {
-    private float moveSpeed = 0.5f;
-    private float disappearTimer = 1.25f;
+    private float moveSpeed = 5.0f;
+    private float disappearTimer = 1.75f;
     private float disappearSpeed = 3.0f;
     private TextMeshPro textUI;
     private Color tempColor;
