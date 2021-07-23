@@ -41,7 +41,7 @@ public class SpellObject : MonoBehaviour
     public void ApplySpell()
     {
         if(playerRef)
-            playerRef.SubstractMana(spell.ManaCost); //Substract the mana cost to the player
+            playerRef.SubtractMana(spell.ManaCost); //Substract the mana cost to the player
         if (targetUnit)
             targetUnit.SetState(spell.StateApplied); //Apply the state to the selected unit
     }

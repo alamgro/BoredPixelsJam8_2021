@@ -6,20 +6,19 @@ using UnityEngine.UI;
 /*
  * This is the player script, which contain the main actions, controls and functionalities of the player mechanics.
  */
-
+public enum PlayerStates { IDLE, CAULDRON, CASTING, RESTING}
 public class Player : MonoBehaviour
 {
     public int maxMana;
 
-    [SerializeField]
+    private PlayerStates playerState;
     private int currentMana;
-    
-    [SerializeField]
-    private Image manaBar;
+    public Image manaBar;
 
 
     void Start()
     {
+        playerState = PlayerStates.IDLE;
         currentMana = maxMana;
     }
 
@@ -41,7 +40,7 @@ public class Player : MonoBehaviour
         CombatManager.Manager.ShowFeedbackPopup(transform.position, _manaAmount, Color.blue, false);
     }
 
-    public void SubstractMana(int _manaAmount)
+    public void SubtractMana(int _manaAmount)
     {
         currentMana -= _manaAmount;
         if(currentMana < 0)
@@ -55,10 +54,22 @@ public class Player : MonoBehaviour
 
     public int GetMana() { return currentMana; }
 
-    private void RegenarateMana()
+    public PlayerStates GetPlayerState() { return playerState; }
+
+    public void SetPlayerState(PlayerStates _state)
     {
-        //Logic to regen mana
+        playerState = _state;
     }
 
+    //Añade x mana cada cierto tiempo
+    public IEnumerator DrainMana(int _manaAmount)
+    {
+        if (!playerState.Equals(PlayerStates.CAULDRON))
+            yield break;
+
+        SubtractMana(_manaAmount);
+        yield return new WaitForSecondsRealtime(1.5f);
+        StartCoroutine(DrainMana(_manaAmount));
+    }
 
 }
